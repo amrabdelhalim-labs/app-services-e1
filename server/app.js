@@ -5,6 +5,7 @@ const morgan = require('morgan');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const db = require('./models/database');
+const models = require('./models');
 
 const app = express();
 const port = process.env.PORT || 3000;
