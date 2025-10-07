@@ -1,0 +1,8 @@
+{
+  "files.exclude": {
+    "**/node_modules": true
+  },
+  "problems.exclude": {
+    "**/node_modules/**": true
+  }
+}
