@@ -8,6 +8,7 @@ export default function HomeScreen(Props) {
     <View style={styles.container}>
       <Text>الصفحة الرئيسية</Text>
       <Button title="صفحة الاطباء" onPress={() => navigation.navigate('Doctors')} />
+      <Button title="صفحة تسجيل مستخدم جديد" onPress={() => navigation.navigate('SignUp')} />
     </View>
   );
 }

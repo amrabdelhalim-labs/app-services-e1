@@ -4,6 +4,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import HomeScreen from './screens/Home';
 import DoctorsScreen from './screens/Doctors';
+import SignUpScreen from './screens/SignUp';
 
 const Stack = createNativeStackNavigator();
 
@@ -32,6 +33,12 @@ export default function App() {
           name="Doctors"
           component={DoctorsScreen}
           options={{ title: 'الاطباء' }}
+        />
+
+        <Stack.Screen
+          name="SignUp"
+          component={SignUpScreen}
+          options={{ title: 'تسجيل مستخدم جديد' }}
         />
       </Stack.Navigator>
     </NavigationContainer>
