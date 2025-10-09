@@ -70,7 +70,7 @@ exports.getProfile = async (req, res) => {
         const result = await models.User.findOne({
             where: { id: req.currentUser.id },
             attributes: { exclude: ['password'] },
-            include: [{ model: models.Doctor }]
+            include: [{ model: models.Doctor, as: 'doctor' }]
         });
 
         res.status(200).json(result);

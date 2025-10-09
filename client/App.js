@@ -6,6 +6,7 @@ import HomeScreen from './screens/Home';
 import DoctorsScreen from './screens/Doctors';
 import SignUpScreen from './screens/SignUp';
 import SignInScreen from './screens/SignIn';
+import ProfileScreen from './screens/Profile';
 
 const Stack = createNativeStackNavigator();
 
@@ -46,6 +47,12 @@ export default function App() {
           name="SignIn"
           component={SignInScreen}
           options={{ title: 'تسجيل الدخول' }}
+        />
+
+        <Stack.Screen
+          name="Profile"
+          component={ProfileScreen}
+          options={{ title: 'الملف الشخصي' }}
         />
       </Stack.Navigator>
     </NavigationContainer>

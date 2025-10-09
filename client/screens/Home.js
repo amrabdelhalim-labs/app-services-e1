@@ -10,6 +10,7 @@ export default function HomeScreen(Props) {
       <Button title="صفحة الاطباء" onPress={() => navigation.navigate('Doctors')} />
       <Button title="صفحة تسجيل مستخدم جديد" onPress={() => navigation.navigate('SignUp')} />
       <Button title="صفحة تسجيل الدخول" onPress={() => navigation.navigate('SignIn')} />
+      <Button title="صفحة الملف الشخصي" onPress={() => navigation.navigate('Profile')} />
     </View>
   );
 }
