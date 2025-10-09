@@ -7,10 +7,18 @@ import axios from '../config/axios';
 import { SIGNUP_URL } from '../config/urls';
 import * as Location from 'expo-location';
 import { useState, useEffect } from 'react';
+import Loader from '../components/Loader';
+import Alert from '../components/Alert';
+
 
 export default function SignUpScreen(Props) {
   const { navigation } = Props;
+
+  const [errorMsg, setErrorMsg] = useState(null);
   const [location, setLocation] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [visible, setVisible] = useState(false);
+  const [alert, setAlert] = useState({ type: '', title: '', message: '' });
 
   useEffect(() => {
     (async () => {
@@ -27,6 +35,7 @@ export default function SignUpScreen(Props) {
   }, []);
 
   const handleSignUp = async (values) => {
+    setLoading(true);
     const body = {
       name: values.name,
       email: values.email,
@@ -46,13 +55,39 @@ export default function SignUpScreen(Props) {
       const response = await axios.post(SIGNUP_URL, body);
 
       console.log(response);
+      setLoading(false);
+      setAlert({
+        type: 'question',
+        title: 'تم انشاء الحساب',
+        message: 'هل ترغب في تسجيل الدخول الآن؟'
+      });
+      setVisible(true);
     } catch (error) {
       console.log(error);
+      setLoading(false);
+      setAlert({
+        type: 'alert',
+        title: 'حدث خطأ',
+        message: error.response?.data?.errors?.[0]?.message || error.response?.data?.message || 'حدث خطأ أثناء إنشاء الحساب'
+      });
+      setVisible(true);
     }
   };
 
   return (
     <ScrollView>
+      <Loader loading={loading} title="جاري انشاء الحساب..." />
+      <Alert
+        visible={visible}
+        type={alert.type}
+        title={alert.title}
+        message={alert.message}
+        onClose={() => setVisible(false)}
+        onClick={() => {
+          navigation.navigate('SignIn');
+        }}
+      />
+
       <View style={styles.container}>
         <Icon
           raised
