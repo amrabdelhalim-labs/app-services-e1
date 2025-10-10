@@ -2,6 +2,7 @@ import { Formik } from "formik";
 import * as yup from 'yup';
 import { Input, CheckBox, Text, Button } from 'react-native-elements';
 import styles from '../styles/authStyles';
+import MapViewContainer from './MapView';
 
 export default function ProfileForm(props) {
     const validationSchema = yup.object().shape({
@@ -46,16 +47,16 @@ export default function ProfileForm(props) {
     return (
         <Formik
             initialValues={{
-                name: '',
-                email: '',
+                name: props.user?.name || '',
+                email: props.user?.email || '',
                 password: '',
-                isDoctor: false,
-                specialization: '',
-                workHours: '',
-                phone: '',
-                address: '',
-                latitude: null,
-                longitude: null
+                isDoctor: props.user?.isDoctor || false,
+                specialization: props.user?.doctor?.specialization || '',
+                workHours: props.user?.doctor?.workHours || '',
+                phone: props.user?.doctor?.phone || '',
+                address: props.user?.doctor?.address || '',
+                latitude: props.user?.latitude || null,
+                longitude: props.user?.longitude || null
             }}
 
             validationSchema={validationSchema}
@@ -82,6 +83,7 @@ export default function ProfileForm(props) {
                             value={values.email}
                             keyboardType="email-address"
                             onChangeText={handleChange('email')}
+                            disabled={props.isEdit} // Disable email field in edit mode
                             onBlur={handleBlur('email')}
                             style={[styles.textInput, errors.email && styles.errorInput]}
                         />
@@ -98,12 +100,14 @@ export default function ProfileForm(props) {
                         />
                         {errors.password && <Text p style={styles.textError}>{errors.password}</Text>}
 
-                        <CheckBox
-                            title="انا طبيب"
-                            name="isDoctor"
-                            checked={values.isDoctor}
-                            onPress={() => setFieldValue('isDoctor', !values.isDoctor)}
-                        />
+                        {props.isEdit ? null : (
+                            <CheckBox
+                                title="انا طبيب"
+                                name="isDoctor"
+                                checked={values.isDoctor}
+                                onPress={() => setFieldValue('isDoctor', !values.isDoctor)}
+                            />
+                        )}
 
                         {values.isDoctor && (
                             <>
@@ -146,11 +150,19 @@ export default function ProfileForm(props) {
                                     style={[styles.textInput, errors.address && styles.errorInput]}
                                 />
                                 {errors.address && <Text p style={styles.textError}>{errors.address}</Text>}
+
+                                {values.latitude &&
+                                    <MapViewContainer
+                                        location={{ latitude: values.latitude, longitude: values.longitude }}
+                                        lat={value => setFieldValue('latitude', value)}
+                                        lng={value => setFieldValue('longitude', value)}
+                                    />
+                                }
                             </>
                         )}
 
                         <Button
-                            title="تسجيل"
+                            title={props.isEdit ? "تعديل" : "تسجيل"}
                             onPress={handleSubmit}
                             disabled={!isValid}
                             style={{ marginTop: '20px' }}

@@ -8,7 +8,7 @@ exports.index = async (req, res) => {
     try {
         const doctors = await models.User.findAll({
             where: { ...searchQuery, isDoctor: true },
-            include: [{ model: models.Doctor }],
+            include: [{ model: models.Doctor , as: 'doctor' }],
             attributes: { exclude: ['password'] }
         });
         

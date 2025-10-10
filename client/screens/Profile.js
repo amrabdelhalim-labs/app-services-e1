@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import Alert from "../components/Alert";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from '../config/axios'
-import { DELETE_PROFILE_URL, PROFILE_URL } from "../config/urls";
+import { PROFILE_URL } from "../config/urls";
 import { transformName } from "../config/helpers";
 import { Button, Icon, Text } from "react-native-elements";
 
@@ -45,7 +45,7 @@ const ProfileScreen = (props) => {
             if (alert.type === 'delete') {
                 const token = await AsyncStorage.getItem('accessToken')
                 axios.defaults.headers.common.Authorization = `JWT ${token}`
-                const response = await axios.delete(DELETE_PROFILE_URL)
+                const response = await axios.delete(PROFILE_URL)
                 console.log(response);
             };
 

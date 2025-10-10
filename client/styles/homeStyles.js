@@ -30,6 +30,7 @@ export default StyleSheet.create({
       labelButton: {
         marginTop: 10,
         fontSize: 16,
+        fontWeight: 'bold',
         textAlign: 'center',
         color: '#fff',
       },

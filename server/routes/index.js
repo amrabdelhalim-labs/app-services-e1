@@ -17,7 +17,7 @@ router.post('/account/signin', userController.login);
 router.get('/account/me', isLoggedIn, userController.me);
 router.get('/account/profile', isLoggedIn, userController.getProfile);
 router.put('/account/profile', isLoggedIn, userController.updateProfile);
-router.delete('/account', isLoggedIn, userController.deleteAccount);
+router.delete('/account/profile', isLoggedIn, userController.deleteAccount);
 
 // Doctor routes
 router.get('/doctors', doctorController.index);
