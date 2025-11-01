@@ -1,5 +1,5 @@
 import React from 'react';
-import MapView, { Marker } from 'react-native-maps';
+import MapViewContainer from '../components/MapView';
 import { transformName } from '../config/helpers';
 import styles from '../styles/profileStyles';
 import { View, Platform } from 'react-native';
@@ -49,31 +49,12 @@ function DoctorDetails({ selectedDoctor, closeModal }) {
                     </View>
                     {selectedDoctor.latitude &&
                         <View style={styles.mapContainer}>
-                            <MapView style={styles.map}
-                                provider='google'
-                                initialRegion={{
+                            <MapViewContainer
+                                location={{
                                     latitude: selectedDoctor.latitude,
-                                    longitude: selectedDoctor.longitude,
-                                    latitudeDelta: 0.01,
-                                    longitudeDelta: 0.01
-                                }}>
-
-                                {Platform.OS == "web" ?
-                                    <MapView.Marker
-                                        coordinate={{
-                                            latitude: selectedDoctor.latitude,
-                                            longitude: selectedDoctor.longitude,
-                                        }}
-                                    />
-                                    :
-                                    <Marker
-                                        coordinate={{
-                                            latitude: selectedDoctor.latitude,
-                                            longitude: selectedDoctor.longitude,
-                                        }}
-                                    />
-                                }
-                            </MapView>
+                                    longitude: selectedDoctor.longitude
+                                }}
+                            />
                         </View>
                     }
 
